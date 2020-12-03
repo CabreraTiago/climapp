@@ -32,19 +32,22 @@ function App() {
         `${apiLocalizacion.base}json?q=${busqueda}&key=${apiLocalizacion.key}`
       )
       .then((response) => {
+        let localizacion = response.data.results[0];
         let ciudad =
-          response.data.results[0].components.city ||
-          response.data.results[0].components.town;
+          localizacion.components.city || localizacion.components.town;
 
-        setCiudad(`${ciudad}, ${response.data.results[0].components.country}`);
-        let coordenadas = response.data.results[0].geometry;
-        axios
-          .get(
-            `${apiClima.base}onecall?lat=${coordenadas.lat}&lon=${coordenadas.lng}&units=${apiClima.units}&exclude=${apiClima.exclude}&appid=${apiClima.key}`
-          )
-          .then((response) => {
-            setClima(response.data);
-          });
+        setCiudad(`${ciudad}, ${localizacion.components.country}`);
+        getDatosMeteorologicos(localizacion.geometry);
+      });
+  };
+
+  const getDatosMeteorologicos = (coordenadas) => {
+    axios
+      .get(
+        `${apiClima.base}onecall?lat=${coordenadas.lat}&lon=${coordenadas.lng}&units=${apiClima.units}&exclude=${apiClima.exclude}&appid=${apiClima.key}`
+      )
+      .then((response) => {
+        setClima(response.data);
       });
   };
 
