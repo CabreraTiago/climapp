@@ -1,0 +1,18 @@
+body {
+  background-image: url("./images/weather.png");
+}
+
+.buscador {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.temperatura-actual {
+  display: flex;
+  justify-content: center;
+}
+
+.card-temperatura-actual {
+  width: 20%;
+}
