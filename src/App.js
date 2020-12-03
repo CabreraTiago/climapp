@@ -32,22 +32,23 @@ function App() {
         `${apiLocalizacion.base}json?q=${busqueda}&key=${apiLocalizacion.key}`
       )
       .then((response) => {
-        let localizacion = response.data.results[0];
-        let ciudad =
-          localizacion.components.city || localizacion.components.town;
-
-        setCiudad(`${ciudad}, ${localizacion.components.country}`);
-        getDatosMeteorologicos(localizacion.geometry);
+        getDatosMeteorologicos(response.data.results[0]);
       });
   };
 
-  const getDatosMeteorologicos = (coordenadas) => {
+  const getDatosMeteorologicos = (localizacion) => {
     axios
       .get(
-        `${apiClima.base}onecall?lat=${coordenadas.lat}&lon=${coordenadas.lng}&units=${apiClima.units}&exclude=${apiClima.exclude}&appid=${apiClima.key}`
+        `${apiClima.base}onecall?lat=${localizacion.geometry.lat}&lon=${localizacion.geometry.lng}&units=${apiClima.units}&exclude=${apiClima.exclude}&appid=${apiClima.key}`
       )
       .then((response) => {
         setClima(response.data);
+        setCiudad(
+          `${localizacion.components.city || localizacion.components.town}, ${
+            localizacion.components.country
+          }`
+        );
+        console.log(response.data.daily);
       });
   };
 
@@ -62,11 +63,15 @@ function App() {
       ) : (
         ""
       )}
-      {/* <CardGroup>
-        {pronostico.map((pr) => (
-          <PronosticoExtendido  />
-        ))}
-      </CardGroup> */}
+      <br />
+      <div className="pronostico">
+        <CardGroup>
+          {clima.daily &&
+            clima.daily.map((pronostico, i) => (
+              <PronosticoExtendido key={i} pronostico={pronostico} />
+            ))}
+        </CardGroup>
+      </div>
     </Fragment>
   );
 }
