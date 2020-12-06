@@ -1,6 +1,5 @@
 import { Fragment, useState } from "react";
 import axios from "axios";
-import { CardGroup } from "react-bootstrap";
 import "./App.css";
 import Buscador from "./components/Buscador";
 import PronosticoExtendido from "./components/PronosticoExtendido";
@@ -48,7 +47,6 @@ function App() {
             localizacion.components.country
           }`
         );
-        console.log(response.data.daily);
       });
   };
 
@@ -58,19 +56,18 @@ function App() {
         onChange={(e) => setBusqueda(e.target.value)}
         getClima={getClima}
       />
+      <br />
       {typeof clima.current != "undefined" ? (
         <TemperaturaActual ciudad={ciudad} clima={clima} />
       ) : (
         ""
       )}
       <br />
-      <div className="pronostico">
-        <CardGroup>
-          {clima.daily &&
-            clima.daily.map((pronostico, i) => (
-              <PronosticoExtendido key={i} pronostico={pronostico} />
-            ))}
-        </CardGroup>
+      <div className="contenedor-pronostico">
+        {clima.daily &&
+          clima.daily.map((pronostico, i) => (
+            <PronosticoExtendido key={i} pronostico={pronostico} />
+          ))}
       </div>
     </Fragment>
   );

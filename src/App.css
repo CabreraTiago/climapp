@@ -26,19 +26,31 @@ body {
 
 /* Temperatura actual */
 
-.temperatura-actual {
+.contenedor-temperatura-actual {
   display: flex;
   justify-content: center;
 }
 
-.card-temperatura-actual {
-  width: 20%;
+.temperatura-actual {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
 }
 
 /* Pronóstico */
 
+.contenedor-pronostico {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
 .pronostico {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  margin-bottom: 20px;
+  align-items: center;
+  color: #ffffff;
 }
