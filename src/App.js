@@ -3,7 +3,7 @@ import axios from "axios";
 import "./App.css";
 import Buscador from "./components/Buscador";
 import PronosticoExtendido from "./components/PronosticoExtendido";
-import TemperaturaActual from "./components/TemperaturaActual";
+import ClimaActual from "./components/ClimaActual";
 
 const apiLocalizacion = {
   base: "https://api.opencagedata.com/geocode/v1/",
@@ -58,7 +58,7 @@ function App() {
       />
       <br />
       {typeof clima.current != "undefined" ? (
-        <TemperaturaActual ciudad={ciudad} clima={clima} />
+        <ClimaActual ciudad={ciudad} clima={clima} />
       ) : (
         ""
       )}
