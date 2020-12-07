@@ -5,7 +5,7 @@ import { Form } from "react-bootstrap";
 const Buscador = ({ onChange, getClima }) => {
   return (
     <div className="buscador">
-      <Form onSubmit={getClima} onChange={onChange}>
+      <Form onChange={onChange} onSubmit={getClima}>
         <Form.Group>
           <Form.Control
             style={{

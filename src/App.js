@@ -5,20 +5,6 @@ import Buscador from "./components/Buscador";
 import PronosticoExtendido from "./components/PronosticoExtendido";
 import ClimaActual from "./components/ClimaActual";
 
-const apiLocalizacion = {
-  base: "https://api.opencagedata.com/geocode/v1/",
-  key: "3433608c06dc4df79f650519ec5e89e4",
-};
-
-const apiClima = {
-  base: "https://api.openweathermap.org/data/2.5/",
-  key: "331ae48f5388a37219c7c9dd37667b27",
-  iconInit: "http://openweathermap.org/img/wn/",
-  iconEnd: "@2x.png",
-  units: "metric",
-  exclude: "hourly,minutely,alerts",
-};
-
 function App() {
   const [busqueda, setBusqueda] = useState("");
   const [clima, setClima] = useState({});
@@ -28,7 +14,7 @@ function App() {
     e.preventDefault();
     axios
       .get(
-        `${apiLocalizacion.base}json?q=${busqueda}&key=${apiLocalizacion.key}`
+        `${process.env.REACT_APP_API_LOCALIZACION}json?q=${busqueda}&key=${process.env.REACT_APP_KEY_API_LOCALIZACION}`
       )
       .then((response) => {
         getDatosMeteorologicos(response.data.results[0]);
@@ -38,7 +24,7 @@ function App() {
   const getDatosMeteorologicos = (localizacion) => {
     axios
       .get(
-        `${apiClima.base}onecall?lat=${localizacion.geometry.lat}&lon=${localizacion.geometry.lng}&units=${apiClima.units}&exclude=${apiClima.exclude}&appid=${apiClima.key}`
+        `${process.env.REACT_APP_API_CLIMA}onecall?lat=${localizacion.geometry.lat}&lon=${localizacion.geometry.lng}&units=${process.env.REACT_APP_API_CLIMA_UNITS}&exclude=${process.env.REACT_APP_API_CLIMA_EXCLUDE}&appid=${process.env.REACT_APP_KEY_API_CLIMA}`
       )
       .then((response) => {
         setClima(response.data);
@@ -58,7 +44,7 @@ function App() {
       />
       <br />
       {typeof clima.current != "undefined" ? (
-        <ClimaActual ciudad={ciudad} clima={clima} />
+        <ClimaActual ciudad={ciudad} climaActual={clima.current} />
       ) : (
         ""
       )}
