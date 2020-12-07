@@ -1,0 +1,21 @@
+.contenedor_clima_actual {
+  display: flex;
+  justify-content: center;
+}
+
+.clima_actual {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #ffffff;
+}
+
+.fuente_clima_actual {
+  font-size: 30px;
+  font-style: italic;
+}
+
+.contenedor_datos_clima {
+  display: flex;
+  flex-direction: row;
+}

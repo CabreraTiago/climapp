@@ -1,9 +1,9 @@
 import { Fragment, useState } from "react";
 import axios from "axios";
 import "./App.css";
-import Buscador from "./components/Buscador";
-import PronosticoExtendido from "./components/PronosticoExtendido";
-import ClimaActual from "./components/ClimaActual";
+import Buscador from "./components/Buscador/Buscador";
+import PronosticoExtendido from "./components/PronosticoExtendido/PronosticoExtendido";
+import ClimaActual from "./components/ClimaActual/ClimaActual";
 
 function App() {
   const [busqueda, setBusqueda] = useState("");
@@ -24,7 +24,7 @@ function App() {
   const getDatosMeteorologicos = (localizacion) => {
     axios
       .get(
-        `${process.env.REACT_APP_API_CLIMA}onecall?lat=${localizacion.geometry.lat}&lon=${localizacion.geometry.lng}&units=${process.env.REACT_APP_API_CLIMA_UNITS}&exclude=${process.env.REACT_APP_API_CLIMA_EXCLUDE}&appid=${process.env.REACT_APP_KEY_API_CLIMA}`
+        `${process.env.REACT_APP_API_CLIMA}onecall?lat=${localizacion.geometry.lat}&lon=${localizacion.geometry.lng}&units=${process.env.REACT_APP_API_CLIMA_UNITS}&exclude=${process.env.REACT_APP_API_CLIMA_EXCLUDE}&lang=es&appid=${process.env.REACT_APP_KEY_API_CLIMA}`
       )
       .then((response) => {
         setClima(response.data);
@@ -33,6 +33,7 @@ function App() {
             localizacion.components.country
           }`
         );
+        setBusqueda("");
       });
   };
 
@@ -40,10 +41,10 @@ function App() {
     <Fragment>
       <Buscador
         onChange={(e) => setBusqueda(e.target.value)}
+        value={busqueda}
         getClima={getClima}
       />
-      <br />
-      {typeof clima.current != "undefined" ? (
+      {clima.current ? (
         <ClimaActual ciudad={ciudad} climaActual={clima.current} />
       ) : (
         ""

@@ -12,43 +12,6 @@ body {
   );
 }
 
-/* Buscador */
-
-.buscador {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.buscador-input:focus {
-  width: 280px;
-}
-
-/* Clima actual */
-
-.contenedor-clima-actual {
-  display: flex;
-  justify-content: center;
-}
-
-.clima-actual {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: #ffffff;
-}
-
-.contenedor-datos-clima {
-  display: flex;
-  flex-direction: row;
-}
-
-.dato-clima {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 /* Pronóstico */
 
 .contenedor-pronostico {

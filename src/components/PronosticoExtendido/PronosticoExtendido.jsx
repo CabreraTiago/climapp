@@ -15,7 +15,9 @@ const PronosticoExtendido = ({ pronostico }) => {
       <label>
         {Math.round(pronostico.temp.min)}° / {Math.round(pronostico.temp.max)}°
       </label>
-      <label>{pronostico.weather[0].main}</label>
+      <label style={{ textTransform: "capitalize" }}>
+        {pronostico.weather[0].description}
+      </label>
     </div>
   );
 };

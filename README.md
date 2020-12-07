@@ -3,7 +3,6 @@
 # Agregar spinner
 # Manejar errores
 # Mejorar el estilo de los datos actuales
-# Cambiar idioma descripcion clima
 # Separar los hooks
 # Agregar ubicacion actual
 # Agregar iconos fortawesome

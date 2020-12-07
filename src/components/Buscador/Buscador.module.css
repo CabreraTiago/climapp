@@ -1,0 +1,22 @@
+.contenedor_buscador {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.buscador {
+  background: none;
+  color: #ffffff;
+  text-align: center;
+  border: 2px solid #ffffff;
+  border-radius: 24px;
+  outline: none;
+  transition: 0.5s;
+}
+
+.buscador:focus {
+  width: 280px;
+  color: #ffffff;
+  background: none;
+  border: 2px solid #ffffff;
+}
