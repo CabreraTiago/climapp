@@ -4,19 +4,41 @@ import "./App.css";
 import Buscador from "./components/Buscador/Buscador";
 import ClimaActual from "./components/ClimaActual/ClimaActual";
 import PronosticoExtendido from "./components/PronosticoExtendido/PronosticoExtendido";
+import Alerta from "./components/Alerta/Alerta";
 
 function App() {
   const [busqueda, setBusqueda] = useState("");
   const [clima, setClima] = useState({});
   const [ciudad, setCiudad] = useState("");
+  const [error, setError] = useState({
+    error: false,
+    mensajeError: "",
+  });
 
   const getClima = (e) => {
     e.preventDefault();
+
+    if (busqueda.trim() === "") {
+      setError({ error: true, mensajeError: "Debe ingresar una ciudad" });
+      return;
+    }
+
+    setError({ error: false, mensajeError: "" });
+
     axios
       .get(
         `${process.env.REACT_APP_API_LOCALIZACION}json?q=${busqueda}&key=${process.env.REACT_APP_KEY_API_LOCALIZACION}`
       )
       .then((response) => {
+        console.log(response.data);
+        if (response.data.results.length === 0) {
+          setError({
+            error: true,
+            mensajeError: "La ciudad ingresada no existe",
+          });
+          return;
+        }
+        setError({ error: false, mensajeError: "" });
         getDatosMeteorologicos(response.data.results[0]);
       })
       .catch((error) => console.log(error));
@@ -46,6 +68,7 @@ function App() {
         value={busqueda}
         getClima={getClima}
       />
+      {error.error ? <Alerta mensajeError={error.mensajeError} /> : ""}
       {clima.current ? (
         <ClimaActual ciudad={ciudad} climaActual={clima.current} />
       ) : (

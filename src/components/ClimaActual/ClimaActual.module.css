@@ -18,4 +18,6 @@
 .contenedor_datos_clima {
   display: flex;
   flex-direction: row;
+  justify-content: space-evenly;
+  color: #ffffff;
 }
