@@ -21,7 +21,7 @@ const ClimaActual = ({ ciudad, climaActual }) => {
           <Dato dato="Humedad" valor={climaActual.humidity} medida="%" />
           <Dato
             dato="Viento"
-            valor={(climaActual.wind_speed * 3600) / 1000}
+            valor={Math.round((climaActual.wind_speed * 3600) / 1000)}
             medida=" Km/h"
           />
           <Dato

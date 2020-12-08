@@ -11,18 +11,3 @@ body {
     rgba(9, 9, 121, 1) 84%
   );
 }
-
-/* Pronóstico */
-
-.contenedor-pronostico {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-evenly;
-}
-
-.pronostico {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: #ffffff;
-}

@@ -1,23 +1,30 @@
 import React from "react";
+import styles from "./PronosticoExtendido.module.css";
 
 const PronosticoExtendido = ({ pronostico }) => {
   return (
-    <div className="pronostico">
-      <label style={{ textTransform: "capitalize" }}>
-        {new Date(pronostico.dt * 1000).toLocaleDateString("es-AR", {
-          weekday: "short",
-          day: "numeric",
-        })}
-      </label>
-      <img
-        src={`${process.env.REACT_APP_URL_ICON_INIT}${pronostico.weather[0].icon}${process.env.REACT_APP_URL_ICON_END}`}
-      />
-      <label>
-        {Math.round(pronostico.temp.min)}° / {Math.round(pronostico.temp.max)}°
-      </label>
-      <label style={{ textTransform: "capitalize" }}>
-        {pronostico.weather[0].description}
-      </label>
+    <div className={styles.contenedor_pronostico}>
+      {pronostico &&
+        pronostico.map((dia, i) => (
+          <div className={styles.pronostico} key={i}>
+            <label style={{ textTransform: "capitalize" }}>
+              {new Date(dia.dt * 1000).toLocaleDateString("es-AR", {
+                weekday: "short",
+                day: "numeric",
+              })}
+            </label>
+            <img
+              src={`${process.env.REACT_APP_URL_ICON_INIT}${dia.weather[0].icon}${process.env.REACT_APP_URL_ICON_END}`}
+              alt=""
+            />
+            <label>
+              {Math.round(dia.temp.min)}° / {Math.round(dia.temp.max)}°
+            </label>
+            <label style={{ textTransform: "capitalize" }}>
+              {dia.weather[0].description}
+            </label>
+          </div>
+        ))}
     </div>
   );
 };

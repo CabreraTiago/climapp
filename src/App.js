@@ -2,8 +2,8 @@ import { Fragment, useState } from "react";
 import axios from "axios";
 import "./App.css";
 import Buscador from "./components/Buscador/Buscador";
-import PronosticoExtendido from "./components/PronosticoExtendido/PronosticoExtendido";
 import ClimaActual from "./components/ClimaActual/ClimaActual";
+import PronosticoExtendido from "./components/PronosticoExtendido/PronosticoExtendido";
 
 function App() {
   const [busqueda, setBusqueda] = useState("");
@@ -18,7 +18,8 @@ function App() {
       )
       .then((response) => {
         getDatosMeteorologicos(response.data.results[0]);
-      });
+      })
+      .catch((error) => console.log(error));
   };
 
   const getDatosMeteorologicos = (localizacion) => {
@@ -34,7 +35,8 @@ function App() {
           }`
         );
         setBusqueda("");
-      });
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
@@ -50,12 +52,7 @@ function App() {
         ""
       )}
       <br />
-      <div className="contenedor-pronostico">
-        {clima.daily &&
-          clima.daily.map((pronostico, i) => (
-            <PronosticoExtendido key={i} pronostico={pronostico} />
-          ))}
-      </div>
+      <PronosticoExtendido pronostico={clima.daily} />
     </Fragment>
   );
 }
