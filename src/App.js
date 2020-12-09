@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import axios from "axios";
 import { trackPromise } from "react-promise-tracker";
 import "./App.css";
@@ -17,6 +17,21 @@ function App() {
     mensajeError: "",
   });
 
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      trackPromise(
+        axios
+          .get(
+            `${process.env.REACT_APP_API_LOCALIZACION}json?q=${position.coords.latitude}+${position.coords.longitude}&key=${process.env.REACT_APP_KEY_API_LOCALIZACION}`
+          )
+          .then((response) => {
+            getDatosMeteorologicos(response.data.results[0]);
+          })
+          .catch((error) => console.log(error))
+      );
+    });
+  }, []);
+
   const getClima = (e) => {
     e.preventDefault();
 
@@ -33,7 +48,6 @@ function App() {
           `${process.env.REACT_APP_API_LOCALIZACION}json?q=${busqueda}&key=${process.env.REACT_APP_KEY_API_LOCALIZACION}`
         )
         .then((response) => {
-          console.log(response.data);
           if (response.data.results.length === 0) {
             setError({
               error: true,
