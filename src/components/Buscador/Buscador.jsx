@@ -1,6 +1,8 @@
-import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+
 import { Container, Form } from "react-bootstrap";
+
+import React from "react";
 import styles from "./Buscador.module.css";
 
 const Buscador = ({ onChange, value, getClima }) => {

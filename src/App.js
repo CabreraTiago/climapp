@@ -1,12 +1,14 @@
-import { Fragment, useEffect, useState } from "react";
-import axios from "axios";
-import { trackPromise } from "react-promise-tracker";
 import "./App.css";
+
+import { Fragment, useEffect, useState } from "react";
+
+import Alerta from "./components/Alerta/Alerta";
 import Buscador from "./components/Buscador/Buscador";
 import ClimaActual from "./components/ClimaActual/ClimaActual";
-import PronosticoExtendido from "./components/PronosticoExtendido/PronosticoExtendido";
-import Alerta from "./components/Alerta/Alerta";
 import IndicadorCarga from "./components/IndicadorCarga/IndicadorCarga";
+import PronosticoExtendido from "./components/PronosticoExtendido/PronosticoExtendido";
+import axios from "axios";
+import { trackPromise } from "react-promise-tracker";
 
 function App() {
   const [busqueda, setBusqueda] = useState("");

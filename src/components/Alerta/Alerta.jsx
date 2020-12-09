@@ -1,5 +1,6 @@
-import React from "react";
 import { Alert, Container } from "react-bootstrap";
+
+import React from "react";
 import styles from "./Alerta.module.css";
 
 const Alerta = ({ mensajeError }) => {

@@ -1,5 +1,7 @@
 import React, { Fragment } from "react";
+
 import Dato from "../Dato/Dato";
+import capitalize from "capitalize";
 import styles from "./ClimaActual.module.css";
 
 const ClimaActual = ({ ciudad, climaActual }) => {
@@ -15,9 +17,7 @@ const ClimaActual = ({ ciudad, climaActual }) => {
             src={`${process.env.REACT_APP_URL_ICON_INIT}${climaActual.weather[0].icon}${process.env.REACT_APP_URL_ICON_END}`}
             alt=""
           />
-          <label style={{ textTransform: "capitalize" }}>
-            {climaActual.weather[0].description}
-          </label>
+          <label>{capitalize(climaActual.weather[0].description)}</label>
         </div>
       </div>
       <div className={styles.contenedor_datos_clima}>
