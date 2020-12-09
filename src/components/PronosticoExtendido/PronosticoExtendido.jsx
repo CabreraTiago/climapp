@@ -1,9 +1,3 @@
-import {
-  faTemperatureHigh,
-  faTemperatureLow,
-} from "@fortawesome/free-solid-svg-icons";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import capitalize from "capitalize";
 import styles from "./PronosticoExtendido.module.css";
@@ -25,9 +19,7 @@ const PronosticoExtendido = ({ pronostico }) => {
               alt=""
             />
             <label>
-              <FontAwesomeIcon icon={faTemperatureLow} />
-              {Math.round(dia.temp.min)} / {Math.round(dia.temp.max)}
-              <FontAwesomeIcon icon={faTemperatureHigh} />
+              {Math.round(dia.temp.min)}° / {Math.round(dia.temp.max)}°
             </label>
             <label>{capitalize(dia.weather[0].description)}</label>
           </div>
