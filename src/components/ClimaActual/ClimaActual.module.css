@@ -15,9 +15,16 @@
   font-style: italic;
 }
 
-.contenedor_datos_clima {
+.contenedor_padre_datos_clima {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: center;
   color: #ffffff;
+}
+
+.contenedor_hijo_datos_clima {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  width: 30%;
 }

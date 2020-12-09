@@ -20,18 +20,20 @@ const ClimaActual = ({ ciudad, climaActual }) => {
           <label>{capitalize(climaActual.weather[0].description)}</label>
         </div>
       </div>
-      <div className={styles.contenedor_datos_clima}>
-        <Dato dato="Humedad" valor={climaActual.humidity} medida="%" />
-        <Dato
-          dato="Viento"
-          valor={Math.round((climaActual.wind_speed * 3600) / 1000)}
-          medida=" Km/h"
-        />
-        <Dato
-          dato="Visibilidad"
-          valor={climaActual.visibility / 1000}
-          medida=" Km"
-        />
+      <div className={styles.contenedor_padre_datos_clima}>
+        <div className={styles.contenedor_hijo_datos_clima}>
+          <Dato dato="Humedad" valor={climaActual.humidity} medida="%" />
+          <Dato
+            dato="Viento"
+            valor={Math.round((climaActual.wind_speed * 3600) / 1000)}
+            medida=" Km/h"
+          />
+          <Dato
+            dato="Visibilidad"
+            valor={climaActual.visibility / 1000}
+            medida=" Km"
+          />
+        </div>
       </div>
     </Fragment>
   );

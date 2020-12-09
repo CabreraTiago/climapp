@@ -1,4 +1,4 @@
-# React App utilizando la API de OpenWeather
+# React App que utiliza las siguientes api
 
-# Mejorar el estilo de los datos actuales
-# Agregar iconos fortawesome
+* OpenCage para la localización
+* OpenWeather para el clima
