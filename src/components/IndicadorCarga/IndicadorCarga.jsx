@@ -9,7 +9,7 @@ const IndicadorCarga = () => {
   return (
     promiseInProgress && (
       <Container className={styles.contenedor_indicador}>
-        <Loader type="ThreeDots" color="#e66109" height="100" width="100" />
+        <Loader type="ThreeDots" color="#ffffff" height="100" width="100" />
       </Container>
     )
   );
