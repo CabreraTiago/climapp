@@ -1,41 +1,41 @@
-import React, { Fragment } from "react";
+import { Card, Container, ListGroup } from 'react-bootstrap';
 
-import Dato from "../Dato/Dato";
-import capitalize from "capitalize";
-import styles from "./ClimaActual.module.css";
+import React from 'react';
+import capitalize from 'capitalize';
+import convert from 'convert-units';
 
 const ClimaActual = ({ ciudad, climaActual }) => {
+  const { temp, humidity, wind_speed, visibility } = climaActual;
+  const { icon, description } = climaActual.weather[0];
+
   return (
-    <Fragment>
-      <div className={styles.contenedor_clima_actual}>
-        <div className={styles.clima_actual}>
-          <label className={styles.fuente_clima_actual}>{ciudad}</label>
-          <label className={styles.fuente_clima_actual}>
-            {Math.round(climaActual.temp)}°
-          </label>
-          <img
-            src={`${process.env.REACT_APP_URL_ICON_INIT}${climaActual.weather[0].icon}${process.env.REACT_APP_URL_ICON_END}`}
-            alt=""
+    <Container className="d-flex justify-content-center font-italic">
+      <Card className="text-white text-center bg-transparent border-0">
+        <Card.Header className="h5">{ciudad}</Card.Header>
+        <Card.Body>
+          <Card.Text className="h5">{Math.round(temp)}°</Card.Text>
+          <Card.Img
+            src={`${process.env.REACT_APP_URL_ICON_INIT}${icon}${process.env.REACT_APP_URL_ICON_END}`}
+            style={{ width: '100px' }}
           />
-          <label>{capitalize(climaActual.weather[0].description)}</label>
-        </div>
-      </div>
-      <div className={styles.contenedor_padre_datos_clima}>
-        <div className={styles.contenedor_hijo_datos_clima}>
-          <Dato dato="Humedad" valor={climaActual.humidity} medida="%" />
-          <Dato
-            dato="Viento"
-            valor={Math.round((climaActual.wind_speed * 3600) / 1000)}
-            medida=" Km/h"
-          />
-          <Dato
-            dato="Visibilidad"
-            valor={climaActual.visibility / 1000}
-            medida=" Km"
-          />
-        </div>
-      </div>
-    </Fragment>
+          <Card.Text>{capitalize(description)}</Card.Text>
+        </Card.Body>
+        <Card.Footer className="d-flex justify-content-center">
+          <ListGroup horizontal>
+            <ListGroup.Item className="bg-transparent">
+              Humedad {humidity}%
+            </ListGroup.Item>
+            <ListGroup.Item className="bg-transparent">
+              Viento {Math.round(convert(wind_speed).from('m/s').to('km/h'))}{' '}
+              Km/h
+            </ListGroup.Item>
+            <ListGroup.Item className="bg-transparent">
+              Visibilidad {convert(visibility).from('m').to('km')} Km
+            </ListGroup.Item>
+          </ListGroup>
+        </Card.Footer>
+      </Card>
+    </Container>
   );
 };
 

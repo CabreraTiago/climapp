@@ -21,10 +21,11 @@ function App() {
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function (position) {
+      const { latitude, longitude } = position.coords;
       trackPromise(
         axios
           .get(
-            `${process.env.REACT_APP_API_LOCALIZACION}json?q=${position.coords.latitude}+${position.coords.longitude}&key=${process.env.REACT_APP_KEY_API_LOCALIZACION}`
+            `${process.env.REACT_APP_API_LOCALIZACION}q=${latitude}+${longitude}&key=${process.env.REACT_APP_KEY_API_LOCALIZACION}`
           )
           .then((response) => {
             getDatosMeteorologicos(response.data.results[0]);
@@ -44,11 +45,17 @@ function App() {
 
     setError({ error: false, mensajeError: "" });
 
+    const instance = axios.create({
+      baseURL: process.env.REACT_APP_API_LOCALIZACION,
+      params: {
+        q: busqueda,
+        key: process.env.REACT_APP_KEY_API_LOCALIZACION,
+      },
+    });
+
     trackPromise(
-      axios
-        .get(
-          `${process.env.REACT_APP_API_LOCALIZACION}json?q=${busqueda}&key=${process.env.REACT_APP_KEY_API_LOCALIZACION}`
-        )
+      instance
+        .get()
         .then((response) => {
           if (response.data.results.length === 0) {
             setError({
@@ -65,22 +72,28 @@ function App() {
   };
 
   const getDatosMeteorologicos = (localizacion) => {
+    const { lat, lng } = localizacion.geometry;
+    const { city, town, state } = localizacion.components;
+    const country = localizacion.components["ISO_3166-1_alpha-3"];
+
+    const instance = axios.create({
+      baseURL: process.env.REACT_APP_API_CLIMA,
+      params: {
+        lat: lat,
+        lon: lng,
+        units: process.env.REACT_APP_API_CLIMA_UNITS,
+        exclude: process.env.REACT_APP_API_CLIMA_EXCLUDE,
+        lang: process.env.REACT_APP_API_CLIMA_LANG,
+        appid: process.env.REACT_APP_API_CLIMA_KEY,
+      },
+    });
+
     trackPromise(
-      axios
-        .get(
-          `${process.env.REACT_APP_API_CLIMA}onecall?lat=${localizacion.geometry.lat}&lon=${localizacion.geometry.lng}&units=${process.env.REACT_APP_API_CLIMA_UNITS}&exclude=${process.env.REACT_APP_API_CLIMA_EXCLUDE}&lang=es&appid=${process.env.REACT_APP_KEY_API_CLIMA}`
-        )
+      instance
+        .get()
         .then((response) => {
           setClima(response.data);
-          setCiudad(
-            `${
-              localizacion.components.city ||
-              localizacion.components.town ||
-              localizacion.components.state
-            }, ${localizacion.components.state} (${
-              localizacion.components["ISO_3166-1_alpha-3"]
-            })`
-          );
+          setCiudad(`${city || town || state}, ${state} (${country})`);
           setBusqueda("");
         })
         .catch((error) => console.log(error))
